@@ -1,0 +1,45 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/errors/.44bd4fbe0b041ae27ef924c150b4451072702ed7-audit.json",
+    "files": [
+        {
+            "date": 1692593461365,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/errors/phu-2023-21-08-10-error.log",
+            "hash": "c21f963081a6c29dd3fbac206ae39b0208da63e565c52962a06cc6f05674650f"
+        },
+        {
+            "date": 1692594341055,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/errors/phu-2023-21-08-11-error.log",
+            "hash": "55244ad3504265a8c99e2644be21576be7898468ee77beffce52072b980eb086"
+        },
+        {
+            "date": 1692599168402,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/errors/phu-2023-21-08-12-error.log",
+            "hash": "4ad89457e6969b74616bec69042bd631607252c904717b94db88a268fcf04481"
+        },
+        {
+            "date": 1692679131450,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/errors/phu-2023-22-08-10-error.log",
+            "hash": "7c920397370c26ff15ab9c3f0d047a6babaab071417fa3d6d044756891a666e7"
+        },
+        {
+            "date": 1692680767285,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/errors/phu-2023-22-08-11-error.log",
+            "hash": "96b5ee184fe2bf155aadb216e24b9a40b3b444882b95aa9d1bb131d60be16cec"
+        },
+        {
+            "date": 1692749756525,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/errors/phu-2023-23-08-06-error.log",
+            "hash": "e65122089b003baf92b86c985b695f7f0896d2e22719412ff8b2933fe658b4a7"
+        },
+        {
+            "date": 1692768497876,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/errors/phu-2023-23-08-11-error.log",
+            "hash": "334bb7b28aaead0bdaa17bf1485c8c2ce05c4a4e380b84db1043dcb622aec6be"
+        }
+    ],
+    "hashType": "sha256"
+}

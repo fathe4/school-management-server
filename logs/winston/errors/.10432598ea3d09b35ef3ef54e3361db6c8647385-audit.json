@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/errors/.10432598ea3d09b35ef3ef54e3361db6c8647385-audit.json",
+    "files": [
+        {
+            "date": 1693579820355,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/errors/phu-2023-01-09-20-error.log",
+            "hash": "90f521df1144ad759ec5baddf0afd1ce88785a3aa9b6747a31dd74ef680bd029"
+        },
+        {
+            "date": 1693580474484,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/errors/phu-2023-01-09-21-error.log",
+            "hash": "14388ac88bb3141bd13a296468ff77f7925952c89b125b767ee4ef89391b6ab4"
+        }
+    ],
+    "hashType": "sha256"
+}

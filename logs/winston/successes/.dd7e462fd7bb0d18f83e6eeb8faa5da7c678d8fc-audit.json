@@ -1,0 +1,45 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/successes/.dd7e462fd7bb0d18f83e6eeb8faa5da7c678d8fc-audit.json",
+    "files": [
+        {
+            "date": 1692593461363,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/successes/phu-2023-21-08-10-success.log",
+            "hash": "31110e8b65cfee416a0074658c6885f58ba2dbbc4f0b28f775fd9fba978cc159"
+        },
+        {
+            "date": 1692594340840,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/successes/phu-2023-21-08-11-success.log",
+            "hash": "9b169226b37ee3b1ad934fd7b3525ac9c8415b3470d6609d6d71709d23bcfb52"
+        },
+        {
+            "date": 1692599168110,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/successes/phu-2023-21-08-12-success.log",
+            "hash": "3378c344b02ff1e47c6e162868cd42641c2ac131e93eb3c4bd8ef8fb7b4add9f"
+        },
+        {
+            "date": 1692679131447,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/successes/phu-2023-22-08-10-success.log",
+            "hash": "2078399dd9748c067ccbfa77cdb9537630fea7cbf11173194882148b4add2407"
+        },
+        {
+            "date": 1692680766995,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/successes/phu-2023-22-08-11-success.log",
+            "hash": "2e551a45799020c9d2643ce5d37af4249e6c6e0e16326a4a096eb5aafe85b301"
+        },
+        {
+            "date": 1692749756519,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/successes/phu-2023-23-08-06-success.log",
+            "hash": "4ac745b69060216441b1dd0711903260c8e858475fb40a5a62c40ef017010a0f"
+        },
+        {
+            "date": 1692768497651,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/university-management-core-service/logs/winston/successes/phu-2023-23-08-11-success.log",
+            "hash": "efebaf172297e41f7e54e82abe3a8ee2717aa19f1f6d5f05f2395aa0a29e62b4"
+        }
+    ],
+    "hashType": "sha256"
+}
