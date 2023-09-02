@@ -44,6 +44,11 @@
             "date": 1693659621163,
             "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/errors/phu-2023-02-09-19-error.log",
             "hash": "e77ef75cdc6a1ab31126b97ad40137d35e3f41ddea577c6b696c54e23fc9d5e1"
+        },
+        {
+            "date": 1693663435631,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/errors/phu-2023-02-09-20-error.log",
+            "hash": "f05223717ffc840632215bd1aab5b55dae876c098f439eaed1225f88b61f0345"
         }
     ],
     "hashType": "sha256"

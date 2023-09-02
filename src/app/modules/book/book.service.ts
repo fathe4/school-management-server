@@ -20,6 +20,18 @@ const insertIntoDB = async (data: Book): Promise<Book> => {
 
   return result;
 };
+const getBookByCategoryId = async (categoryId: string): Promise<Book[]> => {
+  const result = await prisma.book.findMany({
+    where: {
+      categoryId,
+    },
+    include: {
+      category: true,
+    },
+  });
+
+  return result;
+};
 
 const getAllFromDB = async (
   filters: IBookFilterRequest,
@@ -96,4 +108,5 @@ const getAllFromDB = async (
 export const BookService = {
   insertIntoDB,
   getAllFromDB,
+  getBookByCategoryId,
 };
