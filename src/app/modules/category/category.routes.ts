@@ -6,5 +6,6 @@ import { CategoryController } from './category.controller';
 const router = express.Router();
 
 router.post('/', auth(Roles.admin), CategoryController.insertIntoDB);
+router.get('/', CategoryController.getAllCategories);
 
 export const CategoryRoutes = router;
