@@ -24,7 +24,19 @@ const getAllCategories = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await CategoryService.getByIdFromDB(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'AcademicDepartment fetched successfully',
+    data: result,
+  });
+});
+
 export const CategoryController = {
   insertIntoDB,
   getAllCategories,
+  getByIdFromDB,
 };

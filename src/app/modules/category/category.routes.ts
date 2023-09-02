@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post('/', auth(Roles.admin), CategoryController.insertIntoDB);
 router.get('/', CategoryController.getAllCategories);
+router.get('/:id', CategoryController.getByIdFromDB);
 
 export const CategoryRoutes = router;
