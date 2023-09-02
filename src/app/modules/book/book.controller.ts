@@ -22,7 +22,18 @@ const getBookByCategoryId = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Book Category fetched successfully',
+    message: 'Books with associated category data fetched successfully',
+    data: result,
+  });
+});
+
+const getBookById = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await BookService.getBookById(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Book fetched successfully',
     data: result,
   });
 });
@@ -50,4 +61,5 @@ export const BookController = {
   insertIntoDB,
   getAllFromDB,
   getBookByCategoryId,
+  getBookById,
 };

@@ -20,6 +20,7 @@ const insertIntoDB = async (data: Book): Promise<Book> => {
 
   return result;
 };
+
 const getBookByCategoryId = async (categoryId: string): Promise<Book[]> => {
   const result = await prisma.book.findMany({
     where: {
@@ -27,6 +28,21 @@ const getBookByCategoryId = async (categoryId: string): Promise<Book[]> => {
     },
     include: {
       category: true,
+      author: true,
+    },
+  });
+
+  return result;
+};
+
+const getBookById = async (id: string): Promise<Book | null> => {
+  const result = await prisma.book.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      category: true,
+      author: true,
     },
   });
 
@@ -109,4 +125,5 @@ export const BookService = {
   insertIntoDB,
   getAllFromDB,
   getBookByCategoryId,
+  getBookById,
 };
