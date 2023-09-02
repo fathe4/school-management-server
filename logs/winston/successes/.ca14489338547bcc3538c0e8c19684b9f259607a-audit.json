@@ -14,6 +14,16 @@
             "date": 1693580474254,
             "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/successes/phu-2023-01-09-21-success.log",
             "hash": "696457b28de00990d891a799a664bc2d31dea4c5de40bc38747b3fbac618f501"
+        },
+        {
+            "date": 1693630094556,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/successes/phu-2023-02-09-10-success.log",
+            "hash": "b52ddbd9ca1502e13030784c0a923df3c324e8a82a1af6f2452d9ec25aa0f5e8"
+        },
+        {
+            "date": 1693631173746,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/successes/phu-2023-02-09-11-success.log",
+            "hash": "92b4568afa96d9d7ede64927c30fdcc6e75a40c58eddd2ae07905df06a0eebfb"
         }
     ],
     "hashType": "sha256"
