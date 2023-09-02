@@ -24,6 +24,26 @@
             "date": 1693631173974,
             "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/errors/phu-2023-02-09-11-error.log",
             "hash": "52ec2a737f806dd4fb9c74e08cca6628acfe1acd98e2124455c4ecc0ba8e3cb8"
+        },
+        {
+            "date": 1693637884995,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/errors/phu-2023-02-09-12-error.log",
+            "hash": "93a86e050521eee74df81594bfcd5c4e78961d33e3390fd64b84b9207e38c4e8"
+        },
+        {
+            "date": 1693655639704,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/errors/phu-2023-02-09-17-error.log",
+            "hash": "387810508ea46f8c863a5efa7eae432548e58ed26b7ae3a6bc871ccd237f7c12"
+        },
+        {
+            "date": 1693656264347,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/errors/phu-2023-02-09-18-error.log",
+            "hash": "8551cfe951c9973877f3f629363e06e9106bb296e67e271654e9e103c584b84f"
+        },
+        {
+            "date": 1693659621163,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/errors/phu-2023-02-09-19-error.log",
+            "hash": "e77ef75cdc6a1ab31126b97ad40137d35e3f41ddea577c6b696c54e23fc9d5e1"
         }
     ],
     "hashType": "sha256"
