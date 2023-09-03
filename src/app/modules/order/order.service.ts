@@ -1,4 +1,4 @@
-import { Order } from '@prisma/client';
+import { Order, Roles } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 
 const insertIntoDB = async (
@@ -27,13 +27,21 @@ const insertIntoDB = async (
   return newOrder;
 };
 
-const getOrders = async () => {
-  const result = await prisma.order.findMany({
+const getOrders = async ({ id, role }: { id: string; role: string }) => {
+  const userOrders = await prisma.order.findMany({
+    where: {
+      userId: id,
+    },
     include: {
       orderedBooks: true,
     },
   });
-  return result;
+  const allOrders = await prisma.order.findMany({
+    include: {
+      orderedBooks: true,
+    },
+  });
+  return role === Roles.customer ? userOrders : allOrders;
 };
 
 export const OrderService = {
