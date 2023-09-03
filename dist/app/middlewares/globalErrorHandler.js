@@ -7,11 +7,9 @@ const config_1 = __importDefault(require("../../config"));
 const ApiError_1 = __importDefault(require("../../errors/ApiError"));
 const zod_1 = require("zod");
 const handleZodError_1 = __importDefault(require("../../errors/handleZodError"));
-const logger_1 = require("../../shared/logger");
 const globalErrorHandler = (error, req, res, next) => {
-    config_1.default.env === 'development'
-        ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
-        : logger_1.errorlogger.error(`🐱‍🏍 globalErrorHandler ~~`, error);
+    config_1.default.env === 'development' &&
+        console.log(`🐱‍🏍 globalErrorHandler ~~`, { error });
     let statusCode = 500;
     let message = 'Something went wrong !';
     let errorMessages = [];

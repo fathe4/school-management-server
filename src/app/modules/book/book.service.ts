@@ -21,7 +21,9 @@ const insertIntoDB = async (data: Book): Promise<Book> => {
   return result;
 };
 
-const getBookByCategoryId = async (categoryId: string): Promise<Book[]> => {
+const getBookByCategoryId = async (
+  categoryId: string
+): Promise<IGenericResponse<Book[]>> => {
   const result = await prisma.book.findMany({
     where: {
       categoryId,
@@ -32,7 +34,15 @@ const getBookByCategoryId = async (categoryId: string): Promise<Book[]> => {
     },
   });
 
-  return result;
+  return {
+    meta: {
+      total: result.length,
+      page: 1,
+      size: result.length,
+      totalPage: 1,
+    },
+    data: result,
+  };
 };
 
 const getBookById = async (id: string): Promise<Book | null> => {
@@ -117,7 +127,7 @@ const getAllFromDB = async (
     meta: {
       total,
       page,
-      limit: size,
+      size,
       totalPage,
     },
     data: result,
