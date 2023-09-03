@@ -80,4 +80,5 @@ model OrderedBook {
   order   Order  @relation(fields: [orderId], references: [id])
   bookId  String
   book    Book   @relation(fields: [bookId], references: [id])
+  quantity Int
 }
