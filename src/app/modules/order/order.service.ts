@@ -1,4 +1,5 @@
 import { Order, Roles } from '@prisma/client';
+import { JwtPayload } from 'jsonwebtoken';
 import prisma from '../../../shared/prisma';
 
 const insertIntoDB = async (
@@ -27,10 +28,10 @@ const insertIntoDB = async (
   return newOrder;
 };
 
-const getOrders = async ({ id, role }: { id: string; role: string }) => {
+const getOrders = async (user: JwtPayload | null) => {
   const userOrders = await prisma.order.findMany({
     where: {
-      userId: id,
+      userId: user?.id,
     },
     include: {
       orderedBooks: true,
@@ -41,10 +42,32 @@ const getOrders = async ({ id, role }: { id: string; role: string }) => {
       orderedBooks: true,
     },
   });
-  return role === Roles.customer ? userOrders : allOrders;
+  return user?.role === Roles.customer ? userOrders : allOrders;
+};
+
+const getOrder = async (
+  user: JwtPayload,
+  orderId: string
+): Promise<Order | null> => {
+  const orderResult = await prisma.order.findUnique({
+    where: {
+      id: orderId,
+    },
+    include: {
+      orderedBooks: true,
+    },
+  });
+  const isUserOrder = orderResult?.userId == user?.id;
+  if (isUserOrder) {
+    return orderResult;
+  } else if (user.role === Roles.admin) {
+    return orderResult;
+  }
+  return null;
 };
 
 export const OrderService = {
   insertIntoDB,
   getOrders,
+  getOrder,
 };
