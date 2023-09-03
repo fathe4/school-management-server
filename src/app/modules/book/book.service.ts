@@ -111,11 +111,14 @@ const getAllFromDB = async (
     where: whereConditions,
   });
 
+  const totalPage = Math.ceil(total / size);
+
   return {
     meta: {
       total,
       page,
       limit: size,
+      totalPage,
     },
     data: result,
   };

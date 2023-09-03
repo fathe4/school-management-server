@@ -5,7 +5,7 @@ import { BookController } from './book.controller';
 
 const router = express.Router();
 
-router.post('/', auth(Roles.admin), BookController.insertIntoDB);
+router.post('/create-book', auth(Roles.admin), BookController.insertIntoDB);
 router.get('/', BookController.getAllFromDB);
 router.get('/:id', BookController.getBookById);
 router.patch('/:id', auth(Roles.admin), BookController.updateBook);

@@ -4,7 +4,10 @@ import httpStatus from 'http-status';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import routes from './app/routes';
 
+import { Roles } from '@prisma/client';
 import cookieParser from 'cookie-parser';
+import auth from './app/middlewares/auth';
+import { UserController } from './app/modules/user/user.controller';
 
 const app: Application = express();
 
@@ -16,7 +19,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1', routes);
-
+app.use(
+  '/api/v1/profile',
+  auth(Roles.customer, Roles.admin),
+  UserController.getMyProfile
+);
 
 //global error handler
 app.use(globalErrorHandler);

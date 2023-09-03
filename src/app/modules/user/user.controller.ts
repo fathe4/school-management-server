@@ -47,10 +47,10 @@ const getUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getMyProfile = catchAsync(async (req: Request, res: Response) => {
-  if (req.user == null || req.user._id == null) {
+  if (req.user == null || req.user.id == null) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Id not found');
   }
-  const result = await UserService.getUser(req.user._id);
+  const result = await UserService.getUser(req.user.id);
 
   sendResponse<IUser>(res, {
     statusCode: httpStatus.OK,
@@ -61,10 +61,10 @@ const getMyProfile = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateMyProfile = catchAsync(async (req: Request, res: Response) => {
-  if (req.user == null || req.user._id == null) {
+  if (req.user == null || req.user.id == null) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Id not found');
   }
-  const result = await UserService.updateUser(req.user._id, req.body);
+  const result = await UserService.updateUser(req.user.id, req.body);
 
   sendResponse<IUser>(res, {
     statusCode: httpStatus.OK,

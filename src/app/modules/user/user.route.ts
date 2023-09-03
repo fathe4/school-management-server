@@ -4,10 +4,14 @@ import auth from '../../middlewares/auth';
 import { UserController } from './user.controller';
 const router = express.Router();
 
-router.get('/my-profile', auth(Roles.customer), UserController.getMyProfile);
+router.get(
+  '/profile',
+  auth(Roles.customer, Roles.admin),
+  UserController.getMyProfile
+);
 router.patch(
-  '/my-profile',
-  auth(Roles.customer),
+  '/profile',
+  auth(Roles.customer, Roles.admin),
   UserController.updateMyProfile
 );
 router.get('/:id', auth(Roles.admin), UserController.getUser);

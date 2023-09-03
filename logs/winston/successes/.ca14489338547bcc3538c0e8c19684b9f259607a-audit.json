@@ -69,6 +69,21 @@
             "date": 1693717729551,
             "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/successes/phu-2023-03-09-11-success.log",
             "hash": "40ee1690b18c989f46d57c86ebf65a83efb350f2bff49b627ada7a140c617b90"
+        },
+        {
+            "date": 1693727740820,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/successes/phu-2023-03-09-13-success.log",
+            "hash": "9db2a5416c36d71def9a0fc01863852b61be50b4c1220292071f14b82ef6d520"
+        },
+        {
+            "date": 1693741007987,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/successes/phu-2023-03-09-17-success.log",
+            "hash": "440eef960c82100fb52a1ecfc4731b4a9a66508486e007985e25db696c2006b0"
+        },
+        {
+            "date": 1693742697802,
+            "name": "/home/fathe/Desktop/PH LVL 2/Mission 6/Assignemnet 8/university-management-core-service/logs/winston/successes/phu-2023-03-09-18-success.log",
+            "hash": "39a6bbe8e0629b8b9dc95579278d51de62f4fd6150643a6d7fe1129e1da26512"
         }
     ],
     "hashType": "sha256"
