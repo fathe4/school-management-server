@@ -27,6 +27,16 @@ const insertIntoDB = async (
   return newOrder;
 };
 
+const getOrders = async () => {
+  const result = await prisma.order.findMany({
+    include: {
+      orderedBooks: true,
+    },
+  });
+  return result;
+};
+
 export const OrderService = {
   insertIntoDB,
+  getOrders,
 };

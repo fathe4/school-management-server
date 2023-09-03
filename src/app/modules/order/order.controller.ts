@@ -20,6 +20,18 @@ const createOrder = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getOrders = catchAsync(async (req: Request, res: Response) => {
+  const result = await OrderService.getOrders();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Order fetched successfully !',
+    data: result,
+  });
+});
+
 export const OrderController = {
   createOrder,
+  getOrders,
 };
