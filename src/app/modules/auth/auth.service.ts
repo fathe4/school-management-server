@@ -30,7 +30,7 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   }
 
   const { role, id } = userDetails;
-  const accessToken = jwtHelpers.createToken(
+  const token = jwtHelpers.createToken(
     { id, role },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string
@@ -43,7 +43,7 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   );
 
   return {
-    accessToken,
+    token,
     refreshToken,
   };
 };

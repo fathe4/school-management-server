@@ -42,18 +42,19 @@ const createUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const loginData = __rest(req.body, []);
     const result = yield auth_service_1.AuthService.loginUser(loginData);
-    const { refreshToken } = result, others = __rest(result, ["refreshToken"]);
+    const { refreshToken, token } = result;
     const cookieOptions = {
         secure: config_1.default.env === 'production',
         httpOnly: true,
     };
     res.cookie('refreshToken', refreshToken, cookieOptions);
-    (0, sendResponse_1.default)(res, {
+    const response = {
         statusCode: 200,
         success: true,
         message: 'User logged In successfully !',
-        data: others,
-    });
+        token,
+    };
+    res.status(200).json(response);
 }));
 const refreshToken = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { refreshToken } = req.cookies;

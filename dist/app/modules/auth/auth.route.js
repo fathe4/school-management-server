@@ -7,7 +7,7 @@ exports.Auth = void 0;
 const express_1 = __importDefault(require("express"));
 const auth_controller_1 = require("./auth.controller");
 const router = express_1.default.Router();
-router.post('/login', auth_controller_1.AuthController.loginUser);
+router.post('/signin', auth_controller_1.AuthController.loginUser);
 router.post('/signup', auth_controller_1.AuthController.createUser);
 router.post('/refresh-token', auth_controller_1.AuthController.refreshToken);
 exports.Auth = router;

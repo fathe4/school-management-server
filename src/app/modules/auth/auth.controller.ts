@@ -4,7 +4,7 @@ import httpStatus from 'http-status';
 import config from '../../../config';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { ILoginUserResponse, IRefreshTokenResponse } from './auth.interface';
+import { IRefreshTokenResponse } from './auth.interface';
 import { AuthService } from './auth.service';
 
 const createUser: RequestHandler = catchAsync(
@@ -24,7 +24,7 @@ const createUser: RequestHandler = catchAsync(
 const loginUser = catchAsync(async (req: Request, res: Response) => {
   const { ...loginData } = req.body;
   const result = await AuthService.loginUser(loginData);
-  const { refreshToken, ...others } = result;
+  const { refreshToken, token } = result;
 
   const cookieOptions = {
     secure: config.env === 'production',
@@ -33,12 +33,13 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
 
   res.cookie('refreshToken', refreshToken, cookieOptions);
 
-  sendResponse<ILoginUserResponse>(res, {
+  const response = {
     statusCode: 200,
     success: true,
     message: 'User logged In successfully !',
-    data: others,
-  });
+    token,
+  };
+  res.status(200).json(response);
 });
 
 const refreshToken = catchAsync(async (req: Request, res: Response) => {

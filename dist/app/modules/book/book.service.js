@@ -46,7 +46,15 @@ const getBookByCategoryId = (categoryId) => __awaiter(void 0, void 0, void 0, fu
             author: true,
         },
     });
-    return result;
+    return {
+        meta: {
+            total: result.length,
+            page: 1,
+            size: result.length,
+            totalPage: 1,
+        },
+        data: result,
+    };
 });
 const getBookById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.book.findUnique({
@@ -117,7 +125,7 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
         meta: {
             total,
             page,
-            limit: size,
+            size,
             totalPage,
         },
         data: result,
