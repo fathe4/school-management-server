@@ -13,6 +13,7 @@ const getAllUsers = async (): Promise<IUser[]> => {
       contactNo: true,
       address: true,
       profileImg: true,
+      email: true,
       password: false,
     },
   });
@@ -24,7 +25,9 @@ const getUser = async (id: string): Promise<IUser | null> => {
   if (!result) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Not Found');
   }
-  return result;
+  // eslint-disable-next-line no-unused-vars
+  const { password, ...rest } = result;
+  return rest;
 };
 
 const updateUser = async (

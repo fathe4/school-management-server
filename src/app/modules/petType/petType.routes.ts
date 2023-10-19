@@ -1,26 +1,26 @@
 import { Roles } from '@prisma/client';
 import express from 'express';
 import auth from '../../middlewares/auth';
-import { CategoryController } from './category.controller';
+import { PetTypeController } from './petType.controller';
 
 const router = express.Router();
 
 router.post(
-  '/create-category',
+  '/create-pet-type',
   auth(Roles.ADMIN, Roles.SUPER_ADMIN),
-  CategoryController.insertIntoDB
+  PetTypeController.insertIntoDB
 );
-router.get('/', CategoryController.getAllCategories);
+router.get('/', PetTypeController.getAllPetTypes);
 router.patch(
   '/:id',
   auth(Roles.ADMIN, Roles.SUPER_ADMIN),
-  CategoryController.updateCategory
+  PetTypeController.updatePetTypes
 );
 router.delete(
   '/:id',
   auth(Roles.ADMIN, Roles.SUPER_ADMIN),
-  CategoryController.deleteCategory
+  PetTypeController.deletePetTypes
 );
-router.get('/:id', CategoryController.getByIdFromDB);
+router.get('/:id', PetTypeController.getByIdFromDB);
 
-export const CategoryRoutes = router;
+export const PetTypeRoutes = router;

@@ -13,72 +13,91 @@ datasource db {
 model User {
   id              String            @id @default(uuid())
   name            String
-  email           String @unique
+  email           String            @unique
   password        String
-  role            Roles             @default(admin)
+  role            Roles             @default(CUSTOMER)
   contactNo       String
   address         String
   profileImg      String
-  books           Book[]
+  hostel          Hostel[]
   ReviewAndRating ReviewAndRating[]
-  Order           Order[]
-}
-
-enum Roles {
-  admin
-  customer
+  Booking         Booking[]
+  createdAt       DateTime          @default(now())
 }
 
 model Category {
   id    String @id @default(uuid())
   title String
-  books Book[]
+  //   hostels Hostel[]
 }
 
-model Book {
-  id              String            @id @default(uuid())
-  title           String
-  authorId        String
-  author          User              @relation(fields: [authorId], references: [id])
-  price           Int
-  genre           String
-  publicationDate DateTime @default(now())
-  categoryId      String
-  category        Category          @relation(fields: [categoryId], references: [id])
-  reviewAndRatings ReviewAndRating[]
-  orderedBooks     OrderedBook[]
+model Hostel {
+  id            String            @id @default(uuid())
+  title         String
+  description   String
+  ownerId       String
+  owner         User              @relation(fields: [ownerId], references: [id])
+  locationValue String
+  capacity      Int
+  totalBooked   Int               @default(0)
+  price         Int               @default(0)
+  petTypeId     String
+  petType       PetType           @relation(fields: [petTypeId], references: [id])
+  createdAt     DateTime          @default(now())
+  imageSrc      String
+  reviews       ReviewAndRating[]
+  bookings      Booking[]
 }
+
+model PetType {
+  id       String   @id @default(uuid())
+  typeName String
+  imgSrc   String
+  Hostel   Hostel[]
+}
+
+// model PetTypeOnHostel {
+//   id       String   @id @default(uuid())
+//   hostelId String
+//   petTypeId String
+//   hostel   Hostel   @relation(fields: [hostelId], references: [id])
+//   petType  PetType  @relation(fields: [petTypeId], references: [id])
+
+//   @@unique([hostelId, petTypeId])
+// }
 
 model ReviewAndRating {
-  id     String @id @default(uuid())
-  review String
-  rating Int    @default(0)
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-  bookId String
-  book   Book   @relation(fields: [bookId], references: [id])
+  id       String @id @default(uuid())
+  review   String
+  rating   Int    @default(0)
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  hostel   Hostel @relation(fields: [hostelId], references: [id])
+  hostelId String
 }
 
-model Order {
-  id          String        @id @default(uuid())
-  userId      String
-  user        User          @relation(fields: [userId], references: [id])
-  status      OrderStatus   @default(pending)
-  createdAt   DateTime      @default(now())
-  orderedBooks OrderedBook[]
+model Booking {
+  id         String        @id @default(uuid())
+  user       User          @relation(fields: [userId], references: [id])
+  userId     String
+  hostel     Hostel        @relation(fields: [hostelId], references: [id])
+  hostelId   String
+  checkIn    DateTime
+  checkOut   DateTime
+  petCount   Int
+  totalPrice Int
+  status     BookingStatus @default(pending)
 }
 
-enum OrderStatus {
+enum BookingStatus {
   pending
-  shipped
-  delivered
+  confirmed
+  cancelled
+  completed
 }
 
-model OrderedBook {
-  id      String @id @default(uuid())
-  orderId String
-  order   Order  @relation(fields: [orderId], references: [id])
-  bookId  String
-  book    Book   @relation(fields: [bookId], references: [id])
-  quantity Int
+enum Roles {
+  SUPER_ADMIN
+  ADMIN
+  CUSTOMER
 }

@@ -29,7 +29,7 @@ const updateUser = catchAsync(async (req: Request, res: Response) => {
   sendResponse<IUser>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Cow details updated successfully !',
+    message: 'updated user successfully !',
     data: result,
   });
 });

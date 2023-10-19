@@ -6,17 +6,17 @@ const router = express.Router();
 
 router.get(
   '/profile',
-  auth(Roles.customer, Roles.admin),
+  auth(Roles.CUSTOMER, Roles.ADMIN, Roles.SUPER_ADMIN),
   UserController.getMyProfile
 );
 router.patch(
   '/profile',
-  auth(Roles.customer, Roles.admin),
+  auth(Roles.CUSTOMER, Roles.ADMIN, Roles.SUPER_ADMIN),
   UserController.updateMyProfile
 );
-router.get('/:id', auth(Roles.admin), UserController.getUser);
-router.delete('/:id', auth(Roles.admin), UserController.deleteUser);
-router.patch('/:id', auth(Roles.admin), UserController.updateUser);
-router.get('/', auth(Roles.admin), UserController.getAllUsers);
+router.get('/:id', auth(Roles.SUPER_ADMIN), UserController.getUser);
+router.delete('/:id', auth(Roles.SUPER_ADMIN), UserController.deleteUser);
+router.patch('/:id', auth(Roles.SUPER_ADMIN), UserController.updateUser);
+router.get('/', auth(Roles.SUPER_ADMIN), UserController.getAllUsers);
 
 export const UserRoutes = router;

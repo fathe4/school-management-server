@@ -18,7 +18,7 @@ const getByIdFromDB = async (id: string): Promise<Category | null> => {
       id,
     },
     include: {
-      books: true,
+      hostels: true,
     },
   });
   return result;

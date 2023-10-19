@@ -1,8 +1,10 @@
 import express from 'express';
 import { Auth } from '../modules/auth/auth.route';
-import { BookRoutes } from '../modules/book/book.route';
+import { BookingRoutes } from '../modules/booking/booking.router';
 import { CategoryRoutes } from '../modules/category/category.routes';
-import { OrderRoutes } from '../modules/order/order.router';
+import { HostelRoutes } from '../modules/hostel/hostel.route';
+import { PetTypeRoutes } from '../modules/petType/petType.routes';
+import { ReviewRoutes } from '../modules/review/review.routes';
 import { UserRoutes } from '../modules/user/user.route';
 
 const router = express.Router();
@@ -21,12 +23,20 @@ const moduleRoutes = [
     route: CategoryRoutes,
   },
   {
-    path: '/books',
-    route: BookRoutes,
+    path: '/pet-types',
+    route: PetTypeRoutes,
   },
   {
-    path: '/orders',
-    route: OrderRoutes,
+    path: '/reviews',
+    route: ReviewRoutes,
+  },
+  {
+    path: '/hostels',
+    route: HostelRoutes,
+  },
+  {
+    path: '/bookings',
+    route: BookingRoutes,
   },
 ];
 
