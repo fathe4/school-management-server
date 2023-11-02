@@ -12,15 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BookController = void 0;
+exports.HostelController = void 0;
 const http_status_1 = __importDefault(require("http-status"));
+const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const pick_1 = __importDefault(require("../../../shared/pick"));
 const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
-const book_contants_1 = require("./book.contants");
-const book_service_1 = require("./book.service");
-const insertIntoDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield book_service_1.BookService.insertIntoDB(req.body);
+const hostel_contants_1 = require("./hostel.contants");
+const hostel_service_1 = require("./hostel.service");
+const createHostel = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body, 'createHostel ');
+    if (req.user == null || req.user.id == null) {
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'Id not found');
+    }
+    const result = yield hostel_service_1.HostelService.createHostel(req.body, req.user.id);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
@@ -28,39 +33,40 @@ const insertIntoDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
         data: result,
     });
 }));
-const getBookByCategoryId = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { categoryId } = req.params;
-    const result = yield book_service_1.BookService.getBookByCategoryId(categoryId);
+const getHostelByPetTypeId = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { petTypeId } = req.params;
+    const result = yield hostel_service_1.HostelService.getHostelByPetTypeId(petTypeId);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'Books with associated category data fetched successfully',
+        message: 'Hostel fetched successfully',
         data: result,
     });
 }));
-const getBookById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getHostelById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const result = yield book_service_1.BookService.getBookById(id);
+    const result = yield hostel_service_1.HostelService.getHostelById(id);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'Book fetched successfully',
+        message: 'Hostel fetched successfully',
         data: result,
     });
 }));
 const updateBook = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const updatedData = req.body;
-    const result = yield book_service_1.BookService.updateBook(id, updatedData);
+    const result = yield hostel_service_1.HostelService.updateBook(id, updatedData);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'Book updated successfully !',
+        message: 'Hostel updated successfully !',
         data: result,
     });
 }));
 const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const filters = (0, pick_1.default)(req.query, book_contants_1.bookFilterableFields);
+    console.log(req.query, 'req.query');
+    const filters = (0, pick_1.default)(req.query, hostel_contants_1.hostelFilterableFields);
     const options = (0, pick_1.default)(req.query, [
         'limit',
         'page',
@@ -68,30 +74,30 @@ const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
         'sortOrder',
         'size',
     ]);
-    const result = yield book_service_1.BookService.getAllFromDB(filters, options);
+    const result = yield hostel_service_1.HostelService.getAllFromDB(filters, options);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'Book fetched successfully',
+        message: 'Hostel fetched successfully',
         meta: result.meta,
         data: result.data,
     });
 }));
 const deleteBook = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const result = yield book_service_1.BookService.deleteBook(id);
+    const result = yield hostel_service_1.HostelService.deleteBook(id);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'Book deleted successfully !',
+        message: 'Hostel deleted successfully !',
         data: result,
     });
 }));
-exports.BookController = {
-    insertIntoDB,
+exports.HostelController = {
+    createHostel,
     getAllFromDB,
-    getBookByCategoryId,
-    getBookById,
+    getHostelByPetTypeId,
+    getHostelById,
     updateBook,
     deleteBook,
 };

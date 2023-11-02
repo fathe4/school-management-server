@@ -19,9 +19,6 @@ const getByIdFromDB = async (id: string): Promise<PetType | null> => {
     where: {
       id,
     },
-    include: {
-      hostels: true,
-    },
   });
   return result;
 };

@@ -5,9 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const auth_route_1 = require("../modules/auth/auth.route");
-const book_route_1 = require("../modules/book/book.route");
+const booking_router_1 = require("../modules/booking/booking.router");
 const category_routes_1 = require("../modules/category/category.routes");
-const order_router_1 = require("../modules/order/order.router");
+const hostel_route_1 = require("../modules/hostel/hostel.route");
+const petType_routes_1 = require("../modules/petType/petType.routes");
+const review_routes_1 = require("../modules/review/review.routes");
 const user_route_1 = require("../modules/user/user.route");
 const router = express_1.default.Router();
 const moduleRoutes = [
@@ -24,12 +26,20 @@ const moduleRoutes = [
         route: category_routes_1.CategoryRoutes,
     },
     {
-        path: '/books',
-        route: book_route_1.BookRoutes,
+        path: '/pet-types',
+        route: petType_routes_1.PetTypeRoutes,
     },
     {
-        path: '/orders',
-        route: order_router_1.OrderRoutes,
+        path: '/reviews',
+        route: review_routes_1.ReviewRoutes,
+    },
+    {
+        path: '/hostels',
+        route: hostel_route_1.HostelRoutes,
+    },
+    {
+        path: '/bookings',
+        route: booking_router_1.BookingRoutes,
     },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));

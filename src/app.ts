@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1', routes);
 app.use(
   '/api/v1/profile',
-  auth(Roles.customer, Roles.admin),
+  auth(Roles.CUSTOMER, Roles.ADMIN),
   UserController.getMyProfile
 );
 

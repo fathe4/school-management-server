@@ -1,6 +1,8 @@
 export const hostelFilterableFields: string[] = [
   'search',
   'petTypeId',
+  'category',
+  'locationValue',
   'typeName',
   'price',
   'minPrice',

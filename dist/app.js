@@ -19,7 +19,7 @@ app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use('/api/v1', routes_1.default);
-app.use('/api/v1/profile', (0, auth_1.default)(client_1.Roles.customer, client_1.Roles.admin), user_controller_1.UserController.getMyProfile);
+app.use('/api/v1/profile', (0, auth_1.default)(client_1.Roles.CUSTOMER, client_1.Roles.ADMIN), user_controller_1.UserController.getMyProfile);
 //global error handler
 app.use(globalErrorHandler_1.default);
 //handle not found

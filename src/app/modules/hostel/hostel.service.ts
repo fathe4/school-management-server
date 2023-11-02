@@ -64,7 +64,15 @@ const getAllFromDB = async (
   options: IPaginationOptions
 ): Promise<IGenericResponse<Hostel[]>> => {
   const { page, skip, size } = paginationHelpers.calculatePagination(options);
-  const { search, minPrice, maxPrice, rating, petTypeId, ownerId } = filters;
+  const {
+    search,
+    minPrice,
+    maxPrice,
+    rating,
+    ownerId,
+    category,
+    locationValue,
+  } = filters;
 
   const andConditions = [];
 
@@ -103,12 +111,17 @@ const getAllFromDB = async (
       },
     });
   }
-  if (petTypeId) {
+  if (locationValue) {
     andConditions.push({
       AND: {
-        petType: {
-          id: petTypeId,
-        },
+        locationValue,
+      },
+    });
+  }
+  if (category) {
+    andConditions.push({
+      AND: {
+        petTypeId: category,
       },
     });
   }

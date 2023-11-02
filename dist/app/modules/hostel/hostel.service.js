@@ -8,42 +8,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BookService = void 0;
+exports.HostelService = void 0;
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
-const book_contants_1 = require("./book.contants");
-const insertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.book.create({
+const hostel_contants_1 = require("./hostel.contants");
+const createHostel = (data, ownerId) => __awaiter(void 0, void 0, void 0, function* () {
+    data.ownerId = ownerId;
+    const result = yield prisma_1.default.hostel.create({
         data,
         include: {
-            category: true,
+            petType: true,
+            owner: true,
         },
     });
     return result;
 });
-const getBookByCategoryId = (categoryId) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.book.findMany({
+const getHostelByPetTypeId = (petTypeId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.hostel.findMany({
         where: {
-            categoryId,
+            petType: {
+                id: petTypeId,
+            },
         },
         include: {
-            category: true,
-            author: true,
+            petType: true,
+            owner: true,
         },
     });
     return {
@@ -56,25 +49,25 @@ const getBookByCategoryId = (categoryId) => __awaiter(void 0, void 0, void 0, fu
         data: result,
     };
 });
-const getBookById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.book.findUnique({
+const getHostelById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.hostel.findUnique({
         where: {
             id,
         },
         include: {
-            category: true,
-            author: true,
+            owner: true,
+            petType: true,
         },
     });
     return result;
 });
 const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, skip, size } = paginationHelper_1.paginationHelpers.calculatePagination(options);
-    const { search } = filters, filterData = __rest(filters, ["search"]);
+    const { search, minPrice, maxPrice, rating, ownerId, category, locationValue, } = filters;
     const andConditions = [];
     if (search) {
         andConditions.push({
-            OR: book_contants_1.bookSearchableFields.map(field => ({
+            OR: hostel_contants_1.hostelSearchableFields.map(field => ({
                 [field]: {
                     contains: search,
                     mode: 'insensitive',
@@ -82,44 +75,65 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
             })),
         });
     }
-    if (Object.keys(filterData).length > 0) {
+    if (minPrice && maxPrice) {
         andConditions.push({
-            AND: Object.keys(filterData).map(key => {
-                if (book_contants_1.bookRelationalFields.includes(key)) {
-                    return {
-                        [book_contants_1.bookRelationalFieldsMapper[key]]: {
-                            id: filterData[key],
+            AND: {
+                price: {
+                    gte: parseInt(minPrice),
+                    lte: parseInt(maxPrice),
+                },
+            },
+        });
+    }
+    if (rating) {
+        andConditions.push({
+            AND: {
+                reviews: {
+                    some: {
+                        rating: {
+                            gte: parseInt(rating),
                         },
-                    };
-                }
-                else {
-                    return {
-                        [key]: {
-                            equals: filterData[key],
-                        },
-                    };
-                }
-            }),
+                    },
+                },
+            },
+        });
+    }
+    if (locationValue) {
+        andConditions.push({
+            AND: {
+                locationValue,
+            },
+        });
+    }
+    if (category) {
+        andConditions.push({
+            AND: {
+                petTypeId: category,
+            },
+        });
+    }
+    if (ownerId) {
+        andConditions.push({
+            AND: {
+                ownerId: ownerId,
+            },
         });
     }
     const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
-    const result = yield prisma_1.default.book.findMany({
+    const result = yield prisma_1.default.hostel.findMany({
         include: {
-            category: true,
-            author: true,
+            petType: true,
+            owner: true,
+            reviews: true,
         },
         where: whereConditions,
         skip,
         take: size,
         orderBy: options.sortBy && options.sortOrder
             ? { [options.sortBy]: options.sortOrder }
-            : {
-                publicationDate: 'desc',
-            },
+            : {},
     });
-    const total = yield prisma_1.default.book.count({
-        where: whereConditions,
-    });
+    const total = yield prisma_1.default.hostel.count();
     const totalPage = Math.ceil(total / size);
     return {
         meta: {
@@ -132,18 +146,19 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
     };
 });
 const updateBook = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.book.update({ where: { id }, data: payload });
+    const result = yield prisma_1.default.hostel.update({ where: { id }, data: payload });
     return result;
 });
 const deleteBook = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.book.delete({ where: { id } });
+    yield prisma_1.default.booking.deleteMany({ where: { hostelId: id } });
+    const result = yield prisma_1.default.hostel.delete({ where: { id } });
     return result;
 });
-exports.BookService = {
-    insertIntoDB,
+exports.HostelService = {
+    createHostel,
     getAllFromDB,
-    getBookByCategoryId,
-    getBookById,
+    getHostelByPetTypeId,
+    getHostelById,
     updateBook,
     deleteBook,
 };

@@ -12,28 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CategoryService = void 0;
+exports.PetTypeService = void 0;
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const insertIntoDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.category.create({
+    const result = yield prisma_1.default.petType.create({
         data,
     });
     return result;
 });
-const getAllCategories = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.category.findMany();
+const getAllPetTypes = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.petType.findMany();
     return result;
 });
 const getByIdFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.category.findUnique({
+    const result = yield prisma_1.default.petType.findUnique({
         where: {
             id,
         },
     });
     return result;
 });
-const updateCategory = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.category.update({
+const updatePetType = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.petType.update({
         where: {
             id,
         },
@@ -41,14 +41,14 @@ const updateCategory = (id, payload) => __awaiter(void 0, void 0, void 0, functi
     });
     return result;
 });
-const deleteCategory = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.category.delete({ where: { id } });
+const deletePetType = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.petType.delete({ where: { id } });
     return result;
 });
-exports.CategoryService = {
+exports.PetTypeService = {
     insertIntoDB,
-    getAllCategories,
-    updateCategory,
+    getAllPetTypes,
+    updatePetType,
     getByIdFromDB,
-    deleteCategory,
+    deletePetType,
 };

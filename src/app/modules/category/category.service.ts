@@ -17,9 +17,6 @@ const getByIdFromDB = async (id: string): Promise<Category | null> => {
     where: {
       id,
     },
-    include: {
-      hostels: true,
-    },
   });
   return result;
 };
