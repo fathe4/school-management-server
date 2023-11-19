@@ -11,93 +11,143 @@ datasource db {
 }
 
 model User {
-  id              String            @id @default(uuid())
-  name            String
-  email           String            @unique
-  password        String
-  role            Roles             @default(CUSTOMER)
-  contactNo       String
-  address         String
-  profileImg      String
-  hostel          Hostel[]
-  ReviewAndRating ReviewAndRating[]
-  Booking         Booking[]
-  createdAt       DateTime          @default(now())
+  userId      String   @id @default(uuid())
+  username    String   @unique
+  email       String   @unique
+  password    String
+  firstName   String
+  middleName  String
+  lastName    String
+  gender      String
+  dateOfBirth String
+  religion    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  userRoles             UserRoles[]
+  UserAdditionalDetails UserAdditionalDetails[]
 }
 
-model Category {
-  id    String @id @default(uuid())
-  title String
-  //   hostels Hostel[]
+model Roles {
+  roleId    String      @id @default(uuid())
+  roleName  String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime
+  UserRoles UserRoles[]
 }
 
-model Hostel {
-  id            String            @id @default(uuid())
-  title         String
-  description   String
-  ownerId       String
-  owner         User              @relation(fields: [ownerId], references: [id])
-  locationValue String
-  capacity      Int
-  totalBooked   Int               @default(0)
-  price         Int               @default(0)
-  petTypeId     String
-  petType       PetType           @relation(fields: [petTypeId], references: [id])
-  createdAt     DateTime          @default(now())
-  imageSrc      String
-  reviews       ReviewAndRating[]
-  bookings      Booking[]
+model UserRoles {
+  userId String
+  roleId String
+
+  user User  @relation(fields: [userId], references: [userId])
+  role Roles @relation(fields: [roleId], references: [roleId])
+
+  @@id([userId, roleId])
 }
 
-model PetType {
-  id       String   @id @default(uuid())
-  typeName String
-  imgSrc   String
-  Hostel   Hostel[]
+model UserAdditionalDetails {
+  id                    String @id @default(uuid())
+  userId                String
+  address               String
+  postalCode            Int
+  city                  String
+  country               String
+  phoneNumber           String
+  guardianName          String
+  guardianContactNumber String
+
+  user User @relation(fields: [userId], references: [userId])
 }
 
-// model PetTypeOnHostel {
-//   id       String   @id @default(uuid())
-//   hostelId String
-//   petTypeId String
-//   hostel   Hostel   @relation(fields: [hostelId], references: [id])
-//   petType  PetType  @relation(fields: [petTypeId], references: [id])
+model Group {
+  groupId   String   @id @default(uuid())
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
 
-//   @@unique([hostelId, petTypeId])
-// }
-
-model ReviewAndRating {
-  id       String @id @default(uuid())
-  review   String
-  rating   Int    @default(0)
-  user     User   @relation(fields: [userId], references: [id])
-  userId   String
-  hostel   Hostel @relation(fields: [hostelId], references: [id])
-  hostelId String
+  subject      Subject[]
+  ClassSection ClassSection[]
 }
 
-model Booking {
-  id         String        @id @default(uuid())
-  user       User          @relation(fields: [userId], references: [id])
-  userId     String
-  hostel     Hostel        @relation(fields: [hostelId], references: [id])
-  hostelId   String
-  checkIn    DateTime
-  checkOut   DateTime
-  petCount   Int
-  totalPrice Int
-  status     BookingStatus @default(pending)
+model Subject {
+  code        String
+  groupId     String
+  subjectName String
+  SubjectType SubjectType @default(theory)
+
+  group        Group          @relation(fields: [groupId], references: [groupId])
+  ClassSubject ClassSubject[]
+
+  @@id([code, groupId])
 }
 
-enum BookingStatus {
-  pending
-  confirmed
-  cancelled
-  completed
+enum SubjectType {
+  theory
+  practical
 }
 
-enum Roles {
-  SUPER_ADMIN
-  ADMIN
-  CUSTOMER
+model Building {
+  buildingId String   @id @default(uuid())
+  title      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+  Room       Room[]
+}
+
+model Room {
+  roomId     String   @id @default(uuid())
+  buildingId String
+  roomNumber String
+  floor      Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+
+  building     Building       @relation(fields: [buildingId], references: [buildingId])
+  ClassSection ClassSection[]
+}
+
+model Class {
+  classId      String         @id @default(uuid())
+  title        String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  ClassSection ClassSection[]
+  ClassSubject ClassSubject[]
+}
+
+model Section {
+  sectionId    String         @id @default(uuid())
+  sectionName  String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  ClassSection ClassSection[]
+  ClassSubject ClassSubject[]
+}
+
+model ClassSection {
+  classId   String
+  sectionId String
+  roomId    String
+  groupId   String
+
+  class   Class   @relation(fields: [classId], references: [classId])
+  section Section @relation(fields: [sectionId], references: [sectionId])
+  room    Room    @relation(fields: [roomId], references: [roomId])
+  group   Group   @relation(fields: [groupId], references: [groupId])
+
+  @@id([classId, sectionId, roomId, groupId])
+}
+
+model ClassSubject {
+  classId   String
+  sectionId String
+  groupId   String
+  subjectId String
+
+  class   Class   @relation(fields: [classId], references: [classId])
+  section Section @relation(fields: [sectionId], references: [sectionId])
+  subject Subject @relation(fields: [subjectId, groupId], references: [code, groupId])
+
+  @@id([classId, sectionId, subjectId, groupId])
 }
