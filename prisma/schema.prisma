@@ -131,10 +131,11 @@ model ClassSection {
   roomId    String
   groupId   String
 
-  class   Class   @relation(fields: [classId], references: [classId])
-  section Section @relation(fields: [sectionId], references: [sectionId])
-  room    Room    @relation(fields: [roomId], references: [roomId])
-  group   Group   @relation(fields: [groupId], references: [groupId])
+  class        Class          @relation(fields: [classId], references: [classId])
+  section      Section        @relation(fields: [sectionId], references: [sectionId])
+  room         Room           @relation(fields: [roomId], references: [roomId])
+  group        Group          @relation(fields: [groupId], references: [groupId])
+  ClassSubject ClassSubject[]
 
   @@id([classId, sectionId, roomId, groupId])
 }
@@ -142,12 +143,45 @@ model ClassSection {
 model ClassSubject {
   classId   String
   sectionId String
+  roomId    String
   groupId   String
   subjectId String
 
-  class   Class   @relation(fields: [classId], references: [classId])
-  section Section @relation(fields: [sectionId], references: [sectionId])
-  subject Subject @relation(fields: [subjectId, groupId], references: [code, groupId])
+  classSection     ClassSection     @relation(fields: [classId, sectionId, roomId, groupId], references: [classId, sectionId, roomId, groupId])
+  subject          Subject          @relation(fields: [subjectId, groupId], references: [code, groupId])
+  Class            Class?           @relation(fields: [classClassId], references: [classId])
+  classClassId     String?
+  Section          Section?         @relation(fields: [sectionSectionId], references: [sectionId])
+  sectionSectionId String?
+  ClassTimetable   ClassTimetable[]
 
-  @@id([classId, sectionId, subjectId, groupId])
+  @@id([classId, sectionId, subjectId, groupId, roomId])
+}
+
+model ClassTimetable {
+  classId   String
+  sectionId String
+  roomId    String
+  groupId   String
+  subjectId String
+  staffId   String
+  startTime DateTime
+  endTime   DateTime
+  dayOfWeek DayOfWeek
+  createdAt DateTime
+  updatedAt DateTime
+
+  classSubject ClassSubject @relation(fields: [classId, sectionId, roomId, groupId, subjectId], references: [classId, sectionId, roomId, groupId, subjectId])
+
+  @@id([classId, sectionId, subjectId, groupId, roomId])
+}
+
+enum DayOfWeek {
+  SATURDAY
+  SUNDAY
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
 }
